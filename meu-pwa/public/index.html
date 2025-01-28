@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Task Manager</h1>
+
+        <!-- Task Creation Form -->
+        <div class="task-form">
+            <input type="text" id="task-input" placeholder="Enter a new task">
+            <button type="button">Add Task</button>
+        </div>
+
+        <!-- Task List -->
+        <div class="task-list">
+            <input type="checkbox" class="task-checkbox">
+            <div class="task-item">
+                <span>Task 1</span>
+                <div class="task-actions">
+                    <button class="edit">Edit</button>
+                    <button class="delete">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js">
+         if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+            .then(() => console.log('Service Worker registrado com sucesso!'))
+            .catch((error) => console.error('Erro ao registrar o Service Worker:', error));
+    }
+    </script>
+</body>
+</html>
