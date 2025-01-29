@@ -23,15 +23,25 @@ Este é um **Task Manager** simples, desenvolvido como uma **Progressive Web App
 1. Clone este repositório para o seu computador:
 
     ```bash
-    git clone https://github.com/seu-usuario/task-manager-pwa.git
+    git clone https://github.com/mwlaofr/appPWA
     ```
 
 2. Navegue até o diretório da aplicação:
     ```bash
-        cd task-manager-pwa
+        cd meu-pwa
     ```
 
-3. Abra o arquivo index.html em um navegador moderno para rodar a aplicação diretamente no navegador. 
+3. Instale as dependências:
+    ```bash
+        npm install
+    ```
+
+4. Inicie o servidor:
+    ```bash
+        node server.js
+    ```
+
+5. Acesse a aplicação no seu navegador em http://localhost:3000.
 
 ## Como Funciona
 - **Adicionar uma Tarefa:** Insira um nome de tarefa no campo de texto e clique no botão "Add Task". A tarefa será adicionada à lista de tarefas.

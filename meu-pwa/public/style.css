@@ -63,6 +63,7 @@ h1 {
     border-bottom: 1px solid #ddd;
 }
 
+
 .task-item:last-child {
     border-bottom: none;
 }
