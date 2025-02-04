@@ -29,10 +29,10 @@ function addTask() {
     checkbox.addEventListener("change", () => {
       if (checkbox.checked) {
         taskTextElement.style.textDecoration = "line-through";
-        taskTextElement.style.color = "#999"; // Opcional: alterar a cor para indicar completado
+        taskTextElement.style.color = "#999";
       } else {
         taskTextElement.style.textDecoration = "none";
-        taskTextElement.style.color = ""; // Restaurar a cor original
+        taskTextElement.style.color = "";
       }
     });
 
@@ -47,6 +47,10 @@ function addTask() {
 
     // Limpar o campo de entrada
     taskInput.value = "";
+
+    showNotification("Hello World!", {
+      body: "Ping",
+    });
   }
 }
 
@@ -63,4 +67,23 @@ if ("serviceWorker" in navigator) {
     });
   }
   
-  
+// Permissionamento de notificação
+function requestNotificationPermission() {
+  if ('Notification' in window) {
+      Notification.requestPermission().then(permission => {
+          if (permission === 'granted') {
+              console.log("Notification permission granted.");
+          }
+      });
+  } else {
+      console.log("Notifications are not supported in this browser.");
+  }
+}
+
+function showNotification(title, options) {
+  if (Notification.permission === 'granted') {
+      new Notification(title, options);
+  } else {
+      console.log("Notifications are not allowed.");
+  }
+}
