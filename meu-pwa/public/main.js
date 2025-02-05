@@ -78,11 +78,12 @@ if (Notification.permission !== "denied" && Notification.permission !== "granted
 }
 
 // Registrar o service worker
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    // Registrar o Service Worker no momento que a página terminar de carregar
     navigator.serviceWorker
-      .register("/sw.js")
-      .then(() => console.log("Service Worker registrado com sucesso!"))
-      .catch((error) => console.error("Erro ao registrar o Service Worker:", error));
+      .register('/sw.js')  // Verifique o caminho para o seu arquivo sw.js
+      .then(() => console.log('Service Worker registrado com sucesso!'))
+      .catch((error) => console.error('Erro ao registrar o Service Worker:', error));
   });
 }

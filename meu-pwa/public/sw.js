@@ -5,8 +5,7 @@ const urlsToCache = [
   "/style.css",
   "/main.js",
   "/manifest.json",
-  "/icons/icon-192x192.png",
-  "/icons/icon-512x512.png",
+  "/icones/iconApp.png"
 ];
 
 // Instalar o Service Worker
@@ -22,7 +21,8 @@ self.addEventListener("install", (event) => {
 self.addEventListener("fetch", (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+      // Se encontrar a requisição no cache, retorna ela
+      return response || fetch(event.request); // Senão, faz o fetch normalmente
     })
   );
 });
@@ -32,8 +32,7 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames
-          .filter((cache) => cache !== CACHE_NAME)
+        cacheNames.filter((cache) => cache !== CACHE_NAME)
           .map((cache) => caches.delete(cache))
       );
     })
