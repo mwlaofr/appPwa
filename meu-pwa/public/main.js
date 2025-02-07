@@ -102,11 +102,16 @@ if (Notification.permission !== "denied" && Notification.permission !== "granted
 // Função para mostrar a notificação
 function showNotification(title, options) {
   if (Notification.permission === "granted") {
-    new Notification(title, options);
+    navigator.serviceWorker.getRegistration().then((reg) => {
+      if (reg) {
+        reg.showNotification(title, options);
+      }
+    });
   } else {
     console.log("Permissão de notificações não concedida");
   }
 }
+
 
 // Registrar o service worker
 if ('serviceWorker' in navigator) {

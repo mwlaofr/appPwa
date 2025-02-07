@@ -38,3 +38,17 @@ self.addEventListener("activate", (event) => {
     })
   );
 });
+
+//executar notificações em background
+self.addEventListener("push", (event) => {
+  const options = {
+    body: "Você tem uma nova tarefa!",
+    icon: "/icones/iconApp.png",
+    badge: "/icones/iconApp.png",
+  };
+
+  event.waitUntil(
+    self.registration.showNotification("Notificação do Task Manager", options)
+  );
+});
+
