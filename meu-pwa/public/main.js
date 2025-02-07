@@ -10,6 +10,12 @@ function addTask() {
     const taskItem = document.createElement("div");
     taskItem.classList.add("task-item");
 
+    // Adiciona um pequeno delay para garantir que a animação aconteça
+    setTimeout(() => {
+      taskItem.style.opacity = "1";
+      taskItem.style.transform = "translateY(0)";
+  }, 10);
+
     taskItem.innerHTML = `
       <div class="task-content">
         <input type="checkbox" class="task-checkbox">
@@ -41,6 +47,7 @@ function addTask() {
     deleteButton.addEventListener("click", () => {
       taskItem.remove();
     });
+    
 
     // Adicionar a nova tarefa à lista
     taskList.appendChild(taskItem);
@@ -59,14 +66,29 @@ function addTask() {
 // Adicionar evento ao botão
 addTaskButton.addEventListener("click", addTask);
 
-// Função para mostrar a notificação
-function showNotification(title, options) {
-  if (Notification.permission === "granted") {
-    new Notification(title, options);
-  } else {
-    console.log("Permissão de notificações não concedida");
-  }
-}
+//Instalação do pwa 
+let deferredPrompt;
+
+window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredPrompt = event;
+
+    const installButton = document.getElementById("install-btn");
+    installButton.style.display = "block"; // Exibir o botão de instalação
+
+    installButton.addEventListener("click", async () => {
+        if (deferredPrompt) {
+            await deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log("Instalação: ", outcome);
+            deferredPrompt = null;
+            installButton.style.display = "none"; // Esconde o botão após a instalação
+        }
+    });
+});
+
+
+
 
 // Permissão de notificação
 if (Notification.permission !== "denied" && Notification.permission !== "granted") {
@@ -75,6 +97,15 @@ if (Notification.permission !== "denied" && Notification.permission !== "granted
       console.log("Permissão para notificações concedida.");
     }
   });
+}
+
+// Função para mostrar a notificação
+function showNotification(title, options) {
+  if (Notification.permission === "granted") {
+    new Notification(title, options);
+  } else {
+    console.log("Permissão de notificações não concedida");
+  }
 }
 
 // Registrar o service worker
