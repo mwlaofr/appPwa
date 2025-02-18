@@ -3,6 +3,63 @@ window.addEventListener("load", () => {
   const input = document.querySelector("#new-task-input");
   const list_el = document.querySelector("#tasks");
 
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then((registration) => {
+        console.log("Service Worker registrado com sucesso:", registration);
+      })
+      .catch((error) => {
+        console.log("Falha ao registrar o Service Worker:", error);
+      });
+  }
+
+  let deferredPrompt;
+
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+
+    // Criar botão para instalar o PWA
+    const installBtn = document.createElement("button");
+    installBtn.id = "install-pwa-btn";
+    installBtn.textContent = "Install App";
+    installBtn.style.position = "fixed";
+    installBtn.style.bottom = "20px";
+    installBtn.style.right = "20px";
+    installBtn.style.padding = "10px 20px";
+    installBtn.style.background =
+      "linear-gradient(to right, var(--pink), var(--purple))";
+    installBtn.style.color = "#fff";
+    installBtn.style.border = "none";
+    installBtn.style.borderRadius = "5px";
+    installBtn.style.cursor = "pointer";
+    document.body.appendChild(installBtn);
+
+    installBtn.addEventListener("click", () => {
+      installBtn.style.display = "none"; // Esconde o botão após o clique
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("Usuário aceitou instalar o PWA.");
+        } else {
+          console.log("Usuário recusou instalar o PWA.");
+          installBtn.style.display = "block"; // Mostra o botão novamente caso a instalação falhe
+        }
+        deferredPrompt = null;
+      });
+    });
+  });
+
+  // Verificar se o PWA já está instalado
+  window.addEventListener("appinstalled", () => {
+    console.log("PWA instalado com sucesso.");
+    const installBtn = document.getElementById("install-pwa-btn");
+    if (installBtn) {
+      installBtn.remove(); // Remove o botão após a instalação
+    }
+  });
+
   if (Notification.permission !== "granted") {
     Notification.requestPermission();
   }
