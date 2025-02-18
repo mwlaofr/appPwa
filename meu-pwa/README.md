@@ -103,32 +103,7 @@ Esse arquivo gerencia as dependências e scripts do projeto, garantindo que o se
 }
 ```
 
-### 3️⃣ `server.js` - Servidor Express
-Este arquivo configura o servidor **Node.js** usando o **Express**, permitindo que o PWA seja acessado pelo navegador.
-
-**Código do servidor:**
-```js
-const express = require('express');
-const path = require('path');
-const app = express();
-
-const PORT = process.env.PORT || 3000; // Define a porta do servidor
-
-// Servindo arquivos estáticos da pasta 'public'
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Rota principal servindo o index.html
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// Inicia o servidor
-app.listen(PORT, () => {
-    console.log(`Servidor rodando em: http://localhost:${PORT}`);
-});
-```
-
-### 4️⃣ `sw.js` - Service Worker
+### 3️⃣ `sw.js` - Service Worker
 O **Service Worker** é responsável por tornar o PWA funcional offline, armazenando arquivos no cache e gerenciando notificações push.
 
 **Principais funcionalidades:**
