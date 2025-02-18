@@ -4,7 +4,7 @@
   "description": "Manage your tasks efficiently",
   "start_url": "/",
   "display": "standalone",  
-  "background_color": "linear-gradient(to right, var(--pink), var(--purple))",
+  "background_color": "#800080",
   "theme_color": "#4CAF50",
   "icons": [
     {

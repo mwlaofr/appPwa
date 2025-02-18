@@ -70,6 +70,7 @@ main {
 	border: 2px solid transparent;
 	outline: none;
 	transition: border-color 0.3s ease;
+	max-width: 100%;
 }
 
 #new-task-input::placeholder {
@@ -132,78 +133,38 @@ main {
 	-webkit-line-clamp: 8;
 	width: 100%;
 	box-sizing: border-box;
+	word-break: break-word;
+	overflow-wrap: break-word;
 }
 
-.task .content input {
-	width: 100%;
-	background-color: var(--darker);
-	padding: 1rem;
-	border-radius: 1rem;
-	color: var(--light);
-	font-size: 1.125rem;
-	border: 2px solid transparent;
-	outline: none;
-	transition: border-color 0.3s ease;
-}
-
-.task .content input:focus {
-	border-color: var(--pink);
-}
-
-.task .content textarea {
-	width: 100%;
-	min-height: 100px;
-	padding: 1rem;
-	border-radius: 1rem;
-	background-color: var(--darker);
-	color: var(--light);
-	font-size: 1.125rem;
-	resize: vertical;
-	border: 2px solid transparent;
-	outline: none;
-	transition: border-color 0.3s ease;
-	box-sizing: border-box;
-	overflow: hidden;
-}
-
-.task .content textarea:focus {
-	border-color: var(--pink);
-}
-
-.task .content .text:not(:read-only) {
-	color: var(--pink);
-}
-
-/* Task Actions */
 .task .actions-wrapper {
 	display: flex;
 	justify-content: flex-end;
 	width: 100%;
 	margin-top: auto;
+	flex-wrap: wrap;
 }
 
 .task .actions {
 	display: flex;
 	justify-content: flex-end;
-	gap: 1rem;
+	align-items: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
 }
 
 .task .actions button {
-	font-family: inherit;
-	font-size: 1.125rem;
-	font-weight: 300;
+	font-size: 1rem;
+	font-weight: 400;
 	color: inherit;
 	background: none;
 	border: none;
-	outline: none;
-}
-
-.task .actions button:hover {
-	opacity: 0.8;
-}
-
-.task .actions button:active {
-	opacity: 0.6;
+	cursor: pointer;
+	padding: 0.5rem 0.75rem;
+	min-width: 80px;
+	max-width: 100%;
+	touch-action: manipulation;
+	white-space: nowrap;
 }
 
 .task .actions .edit {
@@ -216,67 +177,35 @@ main {
 	color: crimson;
 }
 
-.task .actions .save,
-.task .actions .cancel {
-	margin-left: 0.5rem;
-}
-
-.task .actions .save,
-.task .actions .cancel {
-	background-image: linear-gradient(to right, var(--pink), var(--purple));
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-}
-
-
 .done-checkbox {
 	margin-right: 0.5rem;
 	cursor: pointer;
 }
 
-.done-label {
-	color: var(--grey);
-	cursor: pointer;
-	margin-right: 1rem;
-}
-
-.task .content .text.done {
-	text-decoration: line-through;
-	color: var(--grey);
-	opacity: 0.7;
-}
-
-.task .content textarea ~ .actions .done-checkbox,
-.task .content textarea ~ .actions .done-label {
-	display: none;
-}
-
 @media (max-width: 600px) {
 	#tasks .task {
-			flex-direction: column;
-			padding: 2rem;
+		flex-direction: column;
+		padding: 2rem;
 	}
 
 	.task .content .text {
-			font-size: 1.25rem;
-			display: -webkit-box;
-			-webkit-box-orient: vertical;
-			-webkit-line-clamp: 8;
-			overflow: auto;
-			text-overflow: ellipsis;
+		font-size: 1.25rem;
+		-webkit-line-clamp: 8;
+		overflow: auto;
+		text-overflow: ellipsis;
 	}
 
 	.task .actions {
-			justify-content: flex-end;
-			margin-top: 1rem;
+		justify-content: center;
+		margin-top: 1rem;
 	}
 }
 
 @media (min-width: 601px) {
 	.task .content .text {
-			display: block;
-			font-size: 1.125rem;
-			white-space: normal;
-			text-overflow: unset;
+		display: block;
+		font-size: 1.125rem;
+		white-space: normal;
+		text-overflow: unset;
 	}
 }
