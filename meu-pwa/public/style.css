@@ -28,6 +28,7 @@ header {
 	max-width: 800px;
 	width: 100%;
 	margin: 0 auto;
+	background-color: var(--dark); /* Garantindo que o header não fique com outra cor */
 }
 
 header h1 {
@@ -70,7 +71,6 @@ main {
 	border: 2px solid transparent;
 	outline: none;
 	transition: border-color 0.3s ease;
-	max-width: 100%;
 }
 
 #new-task-input::placeholder {
@@ -133,8 +133,36 @@ main {
 	-webkit-line-clamp: 8;
 	width: 100%;
 	box-sizing: border-box;
-	word-break: break-word;
-	overflow-wrap: break-word;
+}
+
+.task .content input,
+.task .content textarea {
+	width: 100%;
+	background-color: var(--darker);
+	padding: 1rem;
+	border-radius: 1rem;
+	color: var(--light);
+	font-size: 1.125rem;
+	border: 2px solid transparent;
+	outline: none;
+	transition: border-color 0.3s ease;
+}
+
+.task .content input:focus,
+.task .content textarea:focus {
+	border-color: var(--pink);
+}
+
+.task .content textarea {
+	min-height: 100px;
+	resize: vertical;
+	overflow: hidden;
+}
+
+.task .content .text.done {
+	text-decoration: line-through;
+	color: var(--grey);
+	opacity: 0.7;
 }
 
 .task .actions-wrapper {
@@ -154,11 +182,13 @@ main {
 }
 
 .task .actions button {
+	font-family: inherit;
 	font-size: 1rem;
 	font-weight: 400;
 	color: inherit;
 	background: none;
 	border: none;
+	outline: none;
 	cursor: pointer;
 	padding: 0.5rem 0.75rem;
 	min-width: 80px;
@@ -167,7 +197,17 @@ main {
 	white-space: nowrap;
 }
 
-.task .actions .edit {
+.task .actions button:hover {
+	opacity: 0.8;
+}
+
+.task .actions button:active {
+	opacity: 0.6;
+}
+
+.task .actions .edit,
+.task .actions .save,
+.task .actions .cancel {
 	background-image: linear-gradient(to right, var(--pink), var(--purple));
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -182,6 +222,12 @@ main {
 	cursor: pointer;
 }
 
+.done-label {
+	color: var(--grey);
+	cursor: pointer;
+	margin-right: 1rem;
+}
+
 @media (max-width: 600px) {
 	#tasks .task {
 		flex-direction: column;
@@ -190,13 +236,15 @@ main {
 
 	.task .content .text {
 		font-size: 1.25rem;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 8;
 		overflow: auto;
 		text-overflow: ellipsis;
 	}
 
 	.task .actions {
-		justify-content: center;
+		justify-content: flex-end;
 		margin-top: 1rem;
 	}
 }
