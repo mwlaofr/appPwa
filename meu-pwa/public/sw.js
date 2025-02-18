@@ -5,7 +5,7 @@ const urlsToCache = [
   "/style.css",
   "/main.js",
   "/manifest.json",
-  "/icones/iconApp.png"
+  "/icones/iconApp.png",
 ];
 
 // Instalar o Service Worker, faz o cache dos arquivos essenciais p rodar offline
@@ -32,7 +32,8 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.filter((cache) => cache !== CACHE_NAME)
+        cacheNames
+          .filter((cache) => cache !== CACHE_NAME)
           .map((cache) => caches.delete(cache))
       );
     })
@@ -52,3 +53,15 @@ self.addEventListener("push", (event) => {
   );
 });
 
+self.addEventListener("sync", (event) => {
+  if (event.tag === "sync-tasks") {
+    event.waitUntil(syncTasks());
+  }
+});
+
+async function syncTasks() {
+  const tasks = await getPendingTasks();
+  for (const task of tasks) {
+    await sendTaskToServer(task);
+  }
+}
